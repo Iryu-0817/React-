@@ -1,9 +1,9 @@
 import "./App.css";
 import React from "react";
-import EventPoint from "./eventPoint/EventPoint";
+import StateForm from "./componentDeveloping/StateFrom";
 
 function App(elem) {
-  return <EventPoint />;
+  return <StateForm />;
 }
 
 export default App;
