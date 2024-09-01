@@ -29,6 +29,10 @@ const StateTodo = () => {
     );
   };
 
+  const handleRemove = (e) => {
+    setTodo(todo.filter((item) => item.id !== Number(e.target.dataset.id)));
+  };
+
   return (
     <div>
       <label>
@@ -49,6 +53,9 @@ const StateTodo = () => {
             {item.tittle}
             <button type="button" onClick={handledone} data-id={item.id}>
               DONE
+            </button>
+            <button type="button" onClick={handleRemove} data-id={item.id}>
+              DELETE
             </button>
           </li>
         ))}
