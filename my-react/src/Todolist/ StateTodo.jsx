@@ -5,6 +5,7 @@ let maxId = 0;
 const StateTodo = () => {
   const [tittle, setTittle] = useState("");
   const [todo, setTodo] = useState([]);
+  const [desc, setDesc] = useState(true);
 
   const handleChangeTitle = (e) => {
     setTittle(e.target.value);
@@ -33,6 +34,24 @@ const StateTodo = () => {
     setTodo(todo.filter((item) => item.id !== Number(e.target.dataset.id)));
   };
 
+  const handelSort = (e) => {
+    const sorted = [...todo]; //既存のTodoリストを複製の上でソート
+
+    sorted.sort((a, b) => {
+      // descがtrueの場合は降順、falseの場合は昇順
+      if (desc) {
+        return a.created.getTime() - b.created.getTime(); //a.created.getTime() が b.created.getTime() より小さい場合、負の値が返されるため、a が b より前に配置されます。これが昇順のソートです。
+      } else {
+        return b.created.getTime() - a.created.getTime(); //a.created.getTime() が b.created.getTime() より大きい場合、正の値が返されるため、a が b より後に配置されます。これが降順のソートです。
+      }
+    });
+
+    // descの状態を反転
+    setDesc((d) => !d); //dはdescの略
+    // ソート後のリストをセット
+    setTodo(sorted);
+  };
+
   return (
     <div>
       <label>
@@ -46,6 +65,9 @@ const StateTodo = () => {
       </label>
       <button type="button" onClick={handleClick}>
         ADD
+      </button>
+      <button type="button" onClick={handelSort}>
+        SORT({desc ? "↑" : "↓"})
       </button>
       <ul>
         {todo.map((item) => (
