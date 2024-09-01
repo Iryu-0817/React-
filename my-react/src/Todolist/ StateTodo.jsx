@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./StateTodo.css";
 
 let maxId = 0;
 const StateTodo = () => {
@@ -16,6 +17,18 @@ const StateTodo = () => {
     ]);
   };
 
+  const handledone = (e) => {
+    setTodo(
+      todo.map((item) => {
+        if (item.id === Number(e.target.dataset.id)) {
+          return { ...item, isDone: true };
+        } else {
+          return item;
+        }
+      })
+    );
+  };
+
   return (
     <div>
       <label>
@@ -28,11 +41,16 @@ const StateTodo = () => {
         />
       </label>
       <button type="button" onClick={handleClick}>
-        追加
+        ADD
       </button>
       <ul>
         {todo.map((item) => (
-          <li key={item.id}>{(item, tittle)}</li>
+          <li key={item.id} className={item.isDone ? "done" : ""}>
+            {item.tittle}
+            <button type="button" onClick={handledone} data-id={item.id}>
+              DONE
+            </button>
+          </li>
         ))}
       </ul>
     </div>
