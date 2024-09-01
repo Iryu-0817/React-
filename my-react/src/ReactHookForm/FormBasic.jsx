@@ -82,6 +82,16 @@ export default function FormBasic() {
               value: 10,
               message: "メモは10文字以上で入力してください",
             },
+            validate: (value, formValues) => {
+              const ngs = ["FUCK", "fucking", "shit"];
+
+              for (const ng of ngs) {
+                if (value.includes(ng)) {
+                  return "NG words included.";
+                }
+              }
+              return true;
+            },
           })}
         />
         <div>{errors.memo?.message}</div>
